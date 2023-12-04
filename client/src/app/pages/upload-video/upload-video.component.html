@@ -1,0 +1,31 @@
+<h1 style="color: white;">Update Video</h1>
+<mat-card class="card">
+    <mat-card-header>
+        <mat-card-title>
+          <p style="color: red;" *ngIf="(error$ | async)!.message">
+            Something went wrong: {{(error$ | async)!.message}}
+          </p>
+        </mat-card-title>
+      </mat-card-header>
+    <mat-card-content class="card-content">
+        <mat-form-field>
+            <mat-label>File name</mat-label>
+            <input type="text" matInput [formControl]="fileName" placeholder="File Name" required />
+            <input class="fileInput" type="file" (change)="selectFile($event)"/>
+            <mat-error *ngIf="fileName.invalid">{{
+                getErrorMessage()   
+                }}</mat-error>
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>Size</mat-label>
+            <input matInput type="number" placeholder="500" [formControl]="size" required />
+            <mat-error *ngIf="size.invalid">{{
+                getErrorMessage()
+                }}</mat-error>
+        </mat-form-field>
+        <button mat-raised-button color="primary" (click)="onSubmit(fileName.value!, size.value!)"
+            [disabled]="fileName.invalid || size.invalid">
+            Save
+        </button>
+    </mat-card-content>
+</mat-card>

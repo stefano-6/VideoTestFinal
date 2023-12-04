@@ -1,0 +1,19 @@
+<h1 class="titleText">Video Player</h1>
+
+<mat-card class="card" [class.mat-elevation-z8]="true">
+    <mat-card-header class="titleText" *ngIf="(selectedVideo$ | async)">
+        <mat-card-title>{{(selectedVideo$ | async)!.name.split('.', 2)[0]}}</mat-card-title>
+        <mat-card-subtitle>Size: {{((selectedVideo$ | async)!.size * 0.000001) | number:'1.2-2'}} MB</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+        <div class="uploadButton" *ngIf="!(selectedVideo$ | async)">
+            <p class="titleText">Click the button to upload a video</p>
+            <a mat-fab color="primary" routerLink="/video/upload">
+                <mat-icon>add</mat-icon>
+            </a>
+        </div>
+        <div *ngIf="(selectedVideo$ | async)">
+            <video-player [fileName]="(selectedVideo$ | async)!.name"></video-player>
+        </div>
+    </mat-card-content>
+</mat-card>
